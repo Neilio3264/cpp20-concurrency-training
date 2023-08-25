@@ -1,7 +1,7 @@
 BIN_DIR  = ../bin
 OBJS_DIR = ../obj
 INCL_DIR = ../include
-COMM_INCL_DIR = ../../include
+COMM_INCL_DIR = ../../../include
 
 OBJS	 = $(OBJS_DIR)/main.o
 SOURCE	 = main.cpp
