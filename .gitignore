@@ -1,0 +1,41 @@
+# ----------------------------
+# |      Visual Studio       |
+# ----------------------------
+.vscode
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+
+# ----------------------------
+# |         CPP Env          |
+# ----------------------------
+
+# Compiled Object files
+obj
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+bin
+*.exe
+*.out
+*.app
