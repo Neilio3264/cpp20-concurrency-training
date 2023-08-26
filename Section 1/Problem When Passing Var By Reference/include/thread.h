@@ -22,6 +22,15 @@ void functionTwo(int &x)
     }
 }
 
+// ! When functionOne finishes execution, it will destruct
+// ! object in reverse order. Since Thread 2 is detached,
+// ! once Thread 1 is finished, no destructor will ever be called
+// ! Thread 2.
+// ? Thread 2 runs independent thus it continues to access the object
+// ? memory since x is passed by reference. The memory does not
+// ? exist and thus throws an exception
+// * Be careful with detached threads as threads can outlive
+// * the live of variables or other threads.
 void functionOne()
 {
     int x = 5;
