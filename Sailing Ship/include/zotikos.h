@@ -4,14 +4,14 @@ using namespace zotikos;
 
 struct LogData
 {
-    std::string aurgument;
+    std::string argument;
     zotikos::log_state state;
 };
 
 LogData inputHandler(int &command, std::string &message, Captain &captain)
 {
     LogData ld;
-    ld.aurgument = message;
+    ld.argument = message;
 
     switch (command)
     {
@@ -33,6 +33,7 @@ LogData inputHandler(int &command, std::string &message, Captain &captain)
 
     default:
         ld.state = zotikos::log_state::ERROR;
+        ld.argument = "Input Entered in not Command Code";
         break;
     }
 

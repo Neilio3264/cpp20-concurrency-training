@@ -23,12 +23,11 @@ int main()
     bool done = false;
     while (done)
     {
-        cout << "Command Code: ";
+        cout << "Command Code:" << endl;
         int commandCode;
         cin >> commandCode;
         if (cin.fail())
         {
-            cerr << "Error: Input Entered in not Command Code" << endl;
             commandCode = -1;
         }
 
