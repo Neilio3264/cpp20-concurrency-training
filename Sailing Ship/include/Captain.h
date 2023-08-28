@@ -1,23 +1,21 @@
 #pragma once
 
 #include <thread>
-#include "common.h"
+#include "CleaningCrew.h"
+#include "EngineCrew.h"
 
 class Captain
 {
 private:
-    void orderCleaners();
-    void fullSpeedAhead();
-    void stop();
-
-    bool first = true;
-    std::chrono::time_point<std::chrono::high_resolution_clock> cleanStart;
-    std::chrono::time_point<std::chrono::high_resolution_clock> cleanCurrent;
+    EngineCrew engine;
+    CleaningCrew clean;
 
 public:
     Captain();
+    Captain(std::string &logFileName);
 
-    void commandHandler(int &command);
+    void issueCleanCommand();
+    void issueEngineCommand(int &code);
 
     ~Captain();
 };

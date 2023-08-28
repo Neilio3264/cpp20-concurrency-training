@@ -8,7 +8,7 @@ int main()
     string logFileName("../log/sailing.log");
     logger::log(logFileName) << "Logging Started";
 
-    Captain captain;
+    Captain captain(logFileName);
 
     cout << "==== Beginning Ship Command Center ====" << endl;
     cout << "---------------------------------------" << endl
@@ -23,13 +23,16 @@ int main()
     bool done = false;
     while (done)
     {
-        cout << "Command Code:" << endl;
+        cout << "Enter Next Command Code:" << endl;
         int commandCode;
         cin >> commandCode;
         if (cin.fail())
         {
             commandCode = -1;
         }
+
+        LogData temp = inputHandler(commandCode, captain);
+        logger::log(logFileName, temp.state) << temp.argument;
 
         if (commandCode == 100)
         {
@@ -39,7 +42,7 @@ int main()
             done = true;
         }
 
-        captain.commandHandler(commandCode);
+        this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
     return EXIT_SUCCESS;
 }
