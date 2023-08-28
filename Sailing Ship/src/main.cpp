@@ -31,8 +31,7 @@ int main()
             commandCode = -1;
         }
 
-        LogData temp = inputHandler(commandCode, captain);
-        logger::log(logFileName, temp.state) << temp.argument;
+        captain.commandHandler(commandCode);
 
         if (commandCode == 100)
         {
