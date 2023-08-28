@@ -1,10 +1,13 @@
-#include <iostream>
 #include "Captain.h"
+#include "zotikos.h"
 
 using namespace std;
 
 int main()
 {
+    string logFileName("../log/sailing.log");
+    logger::log(logFileName) << "Logging Started";
+
     Captain captain;
 
     cout << "==== Beginning Ship Command Center ====" << endl;
@@ -16,7 +19,9 @@ int main()
     cout << "   (3)   Stop Engine" << endl;
     cout << "   (100) Exit Command Center" << endl;
     cout << endl;
-    while (true)
+
+    bool done = false;
+    while (done)
     {
         cout << "Command Code: ";
         int commandCode;
@@ -31,7 +36,8 @@ int main()
         {
             cout << "==== Exiting Command Center ====" << endl;
             cout << "--------------------------------" << endl;
-            break;
+            logger::log(logFileName, zotikos::log_state::QUIT) << "Logging Stopped";
+            done = true;
         }
 
         captain.commandHandler(commandCode);
