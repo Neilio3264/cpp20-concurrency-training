@@ -22,19 +22,19 @@ namespace zotikos
             break;
 
         case log_state::ENGINE_COMMAND_ISSUED:
-            action = "[ENGINE COMMAND ISSUED] ";
+            action = "[CAPTAIN ISSUES ENGINE COMMAND] ";
             break;
 
         case log_state::ENGINE_CREW_WORKING:
-            action = "[ENGINE CREW WORKING] ";
+            action = "[ENGINE CREW] ";
             break;
 
         case log_state::CLEAN_COMMAND_ISSUED:
-            action = "[CLEAN COMMAND ISSUED] ";
+            action = "[CAPTAIN ISSUES CLEANING COMMAND] ";
             break;
 
         case log_state::CLEAN_CREW_WORKING:
-            action = "[CLEANING CREW WORKING] ";
+            action = "[CLEANING CREW] ";
             break;
 
         case log_state::QUIT:

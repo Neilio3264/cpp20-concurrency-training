@@ -6,29 +6,47 @@
 class EngineCrew
 {
 private:
-public:
-    EngineCrew();
-    ~EngineCrew();
+    std::queue<int> workQueue;
+    bool quit = false;
 
-    void operator()(int &command)
+public:
+    void setQuit()
     {
-        std::cout << "ENGINE: The Engine Crew is Preparing..." << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
-        std::cout << "ENGINE: Engine Crew Ready!";
-        if (command == 2)
+        this->quit = true;
+    }
+
+    void addCommand(int &code)
+    {
+        this->workQueue.push(code);
+    }
+
+    void operator()(std::string &logger)
+    {
+        while (!quit)
         {
-            std::cout << " Preparing the Engines!" << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(3500));
-            std::cout << "ENGINE: Now going Full Speed Ahead!" << std::endl;
-        }
-        else if (command == 3)
-        {
-            std::cout << " Stopping all engines!" << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-            std::cout << "ENGINE: All engines stopped!" << std::endl;
+            if (!workQueue.empty())
+            {
+                logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "New Command Received";
+                logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "Engine Crew is Preparing...";
+                std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+                if (workQueue.front() == 2)
+                {
+                    logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "Preparing the Engines!";
+                    std::this_thread::sleep_for(std::chrono::milliseconds(3500));
+                    logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "Now going Full Speed Ahead!";
+                }
+                else
+                {
+                    logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "Stopping all Engines!";
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+                    logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "All Engines Stopped!";
+                }
+
+                workQueue.pop();
+            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
         }
     }
 };
-
-EngineCrew::EngineCrew() {}
-EngineCrew::~EngineCrew() {}

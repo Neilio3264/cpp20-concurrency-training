@@ -2,23 +2,44 @@
 
 #include <chrono>
 #include <iostream>
+#include <queue>
+#include <string>
+#include "zotikos.h"
 
 class CleaningCrew
 {
 private:
-public:
-    CleaningCrew();
-    ~CleaningCrew();
+    std::queue<std::string> workQueue;
+    bool quit = false;
 
-    void operator()()
+public:
+    void setQuit()
     {
-        std::cout << "CLEANING: The Cleaning Crew is Preparing..." << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
-        std::cout << "CLEANING: Cleaning Crew Readying the Deck" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(7500));
-        std::cout << "CLEANING: The Ship is now spotless" << std::endl;
+        this->quit = true;
+    }
+
+    void addCommand()
+    {
+        this->workQueue.push("clean");
+    }
+
+    void operator()(std::string &logger)
+    {
+        while (!quit)
+        {
+            if (!workQueue.empty())
+            {
+                logger::log(logger, zotikos::log_state::CLEAN_CREW_WORKING) << "New Command Received";
+                logger::log(logger, zotikos::log_state::CLEAN_CREW_WORKING) << "Cleaning Crew is Preparing...";
+                std::this_thread::sleep_for(std::chrono::milliseconds(300));
+                logger::log(logger, zotikos::log_state::CLEAN_CREW_WORKING) << "Cleaning Crew Readying the Deck";
+                std::this_thread::sleep_for(std::chrono::milliseconds(7500));
+                logger::log(logger, zotikos::log_state::CLEAN_CREW_WORKING) << "The Ship is now spotless";
+
+                workQueue.pop();
+            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        }
     }
 };
-
-CleaningCrew::CleaningCrew() {}
-CleaningCrew::~CleaningCrew() {}
