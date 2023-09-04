@@ -39,3 +39,6 @@ bin
 *.exe
 *.out
 *.app
+
+# Logs
+*.log
