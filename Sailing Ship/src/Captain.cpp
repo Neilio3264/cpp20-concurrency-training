@@ -12,10 +12,11 @@ Captain::Captain(std::string &logFileName)
 {
     this->logFileName = logFileName;
 
-    thread engineCrew(this->engine, ref(this->logFileName));
+    thread engineCrew(this->engine, ref(this->logFileName), ref(this->engine.returnQueueRef()));
     engineCrew.detach();
 
-    thread cleanCrew(this->clean, ref(this->logFileName));
+    auto temp = this->clean.returnQueueRef();
+    thread cleanCrew(this->clean, ref(this->logFileName), ref(this->clean.returnQueueRef()));
     cleanCrew.detach();
 }
 

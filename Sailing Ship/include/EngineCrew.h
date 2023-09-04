@@ -20,7 +20,7 @@ public:
         this->workQueue.push(code);
     }
 
-    void operator()(std::string &logger)
+    void operator()(std::string &logger, std::queue<int> &workQueue)
     {
         while (!quit)
         {
@@ -33,13 +33,13 @@ public:
                 if (workQueue.front() == 2)
                 {
                     logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "Preparing the Engines!";
-                    std::this_thread::sleep_for(std::chrono::milliseconds(3500));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1500));
                     logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "Now going Full Speed Ahead!";
                 }
                 else
                 {
                     logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "Stopping all Engines!";
-                    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
                     logger::log(logger, zotikos::log_state::ENGINE_CREW_WORKING) << "All Engines Stopped!";
                 }
 
@@ -48,5 +48,10 @@ public:
 
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
         }
+    }
+
+    std::queue<int> &returnQueueRef()
+    {
+        return workQueue;
     }
 };

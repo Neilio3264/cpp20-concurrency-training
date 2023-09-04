@@ -23,7 +23,7 @@ public:
         this->workQueue.push("clean");
     }
 
-    void operator()(std::string &logger)
+    void operator()(std::string &logger, std::queue<std::string> &workQueue)
     {
         while (!quit)
         {
@@ -33,7 +33,7 @@ public:
                 logger::log(logger, zotikos::log_state::CLEAN_CREW_WORKING) << "Cleaning Crew is Preparing...";
                 std::this_thread::sleep_for(std::chrono::milliseconds(300));
                 logger::log(logger, zotikos::log_state::CLEAN_CREW_WORKING) << "Cleaning Crew Readying the Deck";
-                std::this_thread::sleep_for(std::chrono::milliseconds(7500));
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 logger::log(logger, zotikos::log_state::CLEAN_CREW_WORKING) << "The Ship is now spotless";
 
                 workQueue.pop();
@@ -41,5 +41,10 @@ public:
 
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
         }
+    }
+
+    std::queue<std::string> &returnQueueRef()
+    {
+        return workQueue;
     }
 };
