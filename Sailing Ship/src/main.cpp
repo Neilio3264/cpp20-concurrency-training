@@ -21,7 +21,7 @@ int main()
     cout << endl;
 
     bool done = false;
-    while (done)
+    while (!done)
     {
         cout << "Enter Next Command Code:" << endl;
         int commandCode;
