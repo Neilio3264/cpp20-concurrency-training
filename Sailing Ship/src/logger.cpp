@@ -25,7 +25,7 @@ namespace zotikos
     void logger::print(logger *instance, std::chrono::duration<double, std::milli> interval)
     {
         std::ofstream file;
-        file.open(instance->_fileName, std::ios_base::app);
+        file.open(instance->_fileName, std::ios_base::trunc);
 
         while (instance->_print || !instance->_queue.empty())
         {
@@ -37,7 +37,7 @@ namespace zotikos
                     if (file.is_open())
                     {
                         file << instance->_queue.front() << std::endl;
-                        std::cout << instance->_queue.front() << std::endl;
+                        // std::cout << instance->_queue.front() << std::endl;
                     }
                     instance->_queue.pop();
                 }
