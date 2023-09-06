@@ -12,9 +12,8 @@ using namespace std;
 
 void insert(int const &x)
 {
-    m.lock();
+    lock_guard<mutex> lg(m);
     myList.push_front(x);
-    m.unlock();
 }
 
 void size()
