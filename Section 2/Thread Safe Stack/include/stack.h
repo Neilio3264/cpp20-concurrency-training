@@ -5,6 +5,8 @@
 #include <stack>
 #include <thread>
 
+// ! Notice this implementation still has race conditions
+// ! inherent from the interface
 template <typename T>
 class tsStack
 {
