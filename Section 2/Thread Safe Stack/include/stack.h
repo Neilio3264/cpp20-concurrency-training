@@ -8,15 +8,15 @@
 // ! Notice this implementation still has race conditions
 // ! inherent from the interface
 template <typename T>
-class tsStack
+class Stack
 {
 private:
     std::stack<T> stk;
     std::mutex m;
 
 public:
-    tsStack();
-    ~tsStack();
+    Stack();
+    ~Stack();
 
     void push(T element)
     {
