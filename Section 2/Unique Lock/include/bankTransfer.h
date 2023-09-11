@@ -38,6 +38,9 @@ public:
     {
         cout << this_thread::get_id() << " hold the lock for both mutex" << endl;
 
+        // * As of C++17 -> std::scoped_lock lock(from.m, to.m)
+        // ? Above achieves same as below without using std::lock func or deferring locks
+        // ? Scoped locks cannot transfer ownship of locks
         unique_lock<mutex> ul_1(from.m, defer_lock);
         unique_lock<mutex> ul_2(to.m, defer_lock);
         lock(ul_1, ul_2);
