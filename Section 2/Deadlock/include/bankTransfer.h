@@ -19,8 +19,8 @@ public:
     BankAccount(){};
     BankAccount(double _balance, string _name) : balance(_balance), name(_name) {}
 
-    BankAccount(BankAccount &const) = delete;
-    BankAccount &operator=(BankAccount &const) = delete;
+    BankAccount(const BankAccount &) = delete;
+    BankAccount &operator=(const BankAccount &) = delete;
 
     void withdraw(double amount)
     {
