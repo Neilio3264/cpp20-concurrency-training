@@ -6,6 +6,8 @@
 #include <string>
 #include <chrono>
 
+using namespace std;
+
 /**
  * This program illustrates an example of condition variables
  * The problem modeled is as follows:
@@ -22,18 +24,44 @@ bool arrived = false;
 int distanceToDestination = 10;
 int distanceCovered = 0;
 
-bool keepDriving()
+void keepDriving()
 {
+    while (distanceCovered < 100)
+    {
+        this_thread::sleep_for(chrono::milliseconds(1000));
+        distanceCovered++;
+    }
 }
 
 void keepAwake()
 {
+    while (distanceCovered < distanceToDestination)
+    {
+        cout << "Checking if I am there yet \n";
+        this_thread::sleep_for(chrono::milliseconds(1000));
+    }
+
+    cout << "Arrived at destination! Distance Covered = " << distanceCovered << endl;
 }
 
 void setAlarm()
 {
+    while (distanceCovered < distanceToDestination)
+    {
+        cout << "Taking a nap \n";
+        this_thread::sleep_for(chrono::milliseconds(10000));
+    }
+
+    cout << "Arrived at destination! Distance Covered = " << distanceCovered << endl;
 }
 
 void run()
 {
+    thread driverThread(keepDriving);
+    thread awakeThread(keepAwake);
+    thread alarmThread(setAlarm);
+
+    awakeThread.join();
+    alarmThread.join();
+    driverThread.join();
 }
