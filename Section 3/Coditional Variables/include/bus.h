@@ -5,6 +5,7 @@
 #include <thread>
 #include <string>
 #include <chrono>
+#include <condition_variable>
 
 using namespace std;
 
@@ -23,6 +24,8 @@ using namespace std;
 bool arrived = false;
 int distanceToDestination = 10;
 int distanceCovered = 0;
+condition_variable cv;
+mutex m;
 
 void keepDriving()
 {
@@ -30,6 +33,9 @@ void keepDriving()
     {
         this_thread::sleep_for(chrono::milliseconds(1000));
         distanceCovered++;
+
+        if (distanceCovered == distanceToDestination)
+            cv.notify_one();
     }
 }
 
@@ -55,12 +61,23 @@ void setAlarm()
     cout << "Arrived at destination! Distance Covered = " << distanceCovered << endl;
 }
 
+void askToWake()
+{
+    unique_lock<mutex> ul(m);
+    // * Want to use predicate to guard against spurious wake up via OS
+    cv.wait(ul, []
+            { return distanceCovered == distanceToDestination; });
+    cout << "Arrived at destination! Distance Covered = " << distanceCovered << endl;
+}
+
 void run()
 {
     thread driverThread(keepDriving);
     thread awakeThread(keepAwake);
     thread alarmThread(setAlarm);
+    thread toWakeThread(askToWake);
 
+    toWakeThread.join();
     awakeThread.join();
     alarmThread.join();
     driverThread.join();
