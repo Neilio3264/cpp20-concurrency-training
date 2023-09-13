@@ -26,7 +26,7 @@ int distanceCovered = 0;
 
 void keepDriving()
 {
-    while (distanceCovered < 100)
+    while (distanceCovered < 50)
     {
         this_thread::sleep_for(chrono::milliseconds(1000));
         distanceCovered++;
@@ -46,7 +46,7 @@ void keepAwake()
 
 void setAlarm()
 {
-    while (distanceCovered < distanceToDestination)
+    if (distanceCovered < distanceToDestination)
     {
         cout << "Taking a nap \n";
         this_thread::sleep_for(chrono::milliseconds(10000));
