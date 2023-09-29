@@ -31,7 +31,9 @@ void run()
 
     future<void> f1 = async(launch::async, printing);
     future<int> f2 = async(launch::deferred, addition, x, y);
+    future<int> f3 = async(launch::deferred | launch::async, subtraction, x, y);
 
     f1.get();
     cout << "Value received using f2 future - " << f2.get() << endl;
+    cout << "Value received using f3 future - " << f3.get() << endl;
 }
