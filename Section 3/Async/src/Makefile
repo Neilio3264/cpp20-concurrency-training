@@ -5,7 +5,7 @@ COMM_INCL_DIR = ../../../include
 
 OBJS	 = $(OBJS_DIR)/main.o
 SOURCE	 = main.cpp
-HEADER	 = $(INCL_DIR)/future.h $(COMM_INCL_DIR)/common.h
+HEADER	 = $(INCL_DIR)/future.h $(INCL_DIR)/task.h $(COMM_INCL_DIR)/common.h
 OUT	     = $(BIN_DIR)/main
 CXX	     = g++
 CXXFLAGS = -O2 -std=c++20 -Wall -Wextra -pedantic

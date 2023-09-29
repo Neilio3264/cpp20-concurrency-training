@@ -1,7 +1,9 @@
 #include "future.h"
+#include "task.h"
 
 int main()
 {
-    run();
+    // run();
+    task();
     return 0;
 }

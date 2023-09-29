@@ -22,7 +22,7 @@ int subtraction(int x, int y)
     return x - y;
 }
 
-void run()
+void task()
 {
     cout << "Main Thread ID - " << this_thread::get_id() << endl;
 
