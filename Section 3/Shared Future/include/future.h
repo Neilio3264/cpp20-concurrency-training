@@ -10,7 +10,16 @@ using namespace std;
 
 void printResult(std::future<int> &fut)
 {
-    cout << fut.get() << endl;
+    // ! We still run into a race condition if both threads are allowed in before running .get()
+    if (fut.valid())
+    {
+        cout << "This is a valid future\n";
+        cout << fut.get() << endl;
+    }
+    else
+    {
+        cout << "This is not a valid future" << endl;
+    }
 }
 
 void run()
