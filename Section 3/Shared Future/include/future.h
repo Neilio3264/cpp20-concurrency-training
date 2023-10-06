@@ -8,24 +8,15 @@
 
 using namespace std;
 
-void printResult(std::future<int> &fut)
+void printResult(shared_future<int> &fut)
 {
-    // ! We still run into a race condition if both threads are allowed in before running .get()
-    if (fut.valid())
-    {
-        cout << "This is a valid future\n";
-        cout << fut.get() << endl;
-    }
-    else
-    {
-        cout << "This is not a valid future" << endl;
-    }
+    cout << fut.get() << " - valid future \n";
 }
 
 void run()
 {
     promise<int> prom;
-    future<int> fut(prom.get_future());
+    shared_future<int> fut(prom.get_future());
 
     thread th1(printResult, ref(fut));
     thread th2(printResult, ref(fut));
