@@ -11,8 +11,8 @@ int main()
 
     queue.printData();
 
-    std::cout << "Removing: " << *(queue.pop().get()) << std::endl;
-    std::cout << "Removing: " << *(queue.pop().get()) << std::endl;
+    cout << "Removing: " << *(queue.pop().get()) << endl;
+    cout << "Removing: " << *(queue.pop().get()) << endl;
     queue.printData();
     return EXIT_SUCCESS;
 }

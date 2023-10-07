@@ -52,7 +52,7 @@ public:
     {
         shared_ptr<T> newData(make_shared<T>(move(value)));
         unique_ptr<node> dummy(new node);
-        const node *newTail = dummy.get();
+        node *newTail = dummy.get();
         {
             lock_guard<mutex> tLock(tail_mut);
             tail->data = newData;
@@ -69,8 +69,8 @@ public:
         if (head.get() == getTail())
             return shared_ptr<T>();
 
-        const shared_ptr<T> res(head->data);
-        const unique_ptr<T> oldHead = move(head);
+        shared_ptr<T> res(head->data);
+        unique_ptr<node> oldHead = move(head);
         head = move(oldHead->next);
         return res;
     }
@@ -81,20 +81,20 @@ public:
 template <typename T>
 inline void sequentialQueue<T>::printData()
 {
-    if (head.get() == get_tail())
+    if (head.get() == getTail())
     {
-        std::cout << "Queue is empty...\n";
+        cout << "Queue is empty...\n";
         return;
     }
 
-    std::lock_guard<std::mutex> hlg(head_mutex);
+    lock_guard<mutex> hLock(head_mut);
 
     node *current = head.get();
-    std::cout << "Queue from top to bottom...\n";
+    cout << "Queue from top to bottom...\n";
     int index{};
     while (current->data != nullptr)
     {
-        std::cout << "current: " << current << ", value [" << index++ << "]: " << *(current->data) << std::endl;
+        cout << "current: " << current << ", value [" << index++ << "]: " << *(current->data) << endl;
         current = (current->next).get();
     }
     std::cout << "End of the queue...\n";
