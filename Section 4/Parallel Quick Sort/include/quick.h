@@ -28,7 +28,7 @@ list<T> quickSort(list<T> input)
     lowerList.splice(lowerList.end(), input, input.begin(), dividePoint);
 
     list<T> newLower(quickSort(move(lowerList)));
-    list<T> newUpper(quickSort(move(upperList)));
+    list<T> newUpper(quickSort(move(input)));
 
     result.splice(result.begin(), newLower);
     result.splice(result.end(), newUpper);
