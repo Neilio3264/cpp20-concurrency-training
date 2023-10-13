@@ -9,7 +9,7 @@ HEADER	 = $(INCL_DIR)/quick.h
 OUT	     = $(BIN_DIR)/main
 CXX	     = g++
 CXXFLAGS = -O2 -std=c++20 -Wall -Wextra -pedantic
-LDLIBS	 = -ltbb
+LDLIBS	 = -lpthread
 CPPFLAGS = -I$(INCL_DIR) -I$(COMM_INCL_DIR)
 
 all: $(OBJS)
