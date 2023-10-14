@@ -65,6 +65,7 @@ void parallelForEachAsync(Iterator begin, Iterator end, Func f)
     {
         const Iterator mid = begin + length / 2;
         future<void> firstHalf = async(&parallelForEachAsync<Iterator, Func>, begin, mid, f);
+        // TODO: Improve performance here
         parallelForEachAsync(mid, end, f);
         firstHalf.get();
     }
@@ -82,6 +83,7 @@ void run()
     cout << "Testing with " << testSize << " integers..." << endl;
     vector<int> ints(testSize, 1);
 
+    // TODO: Have function actually access the vector information
     auto func = [](const int &n)
     {
         int sum = 0;
