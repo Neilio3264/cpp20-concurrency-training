@@ -1,6 +1,7 @@
 #pragma once
 
 #include <thread>
+#include <vector>
 
 class ThreadGuard
 {
@@ -27,4 +28,23 @@ public:
 
 private:
     std::thread &t;
+};
+
+class JoinThread
+{
+    std::vector<std::thread> &threads;
+
+public:
+    explicit JoinThread(std::vector<std::thread> &_threads) : threads(_threads)
+    {
+    }
+
+    ~JoinThread()
+    {
+        for (long unsigned int i = 0; i < threads.size(); i++)
+        {
+            if (threads[i].joinable())
+                threads[i].join();
+        }
+    }
 };
